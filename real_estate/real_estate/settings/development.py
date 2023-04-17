@@ -1,6 +1,5 @@
 from .base import *
 
-
 DATABASES = {
     'default': {
         'ENGINE': env('PG_ENGINE'),

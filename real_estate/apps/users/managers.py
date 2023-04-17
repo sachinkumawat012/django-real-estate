@@ -2,6 +2,8 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.utils.translation import gettext_lazy as _
+import uuid
+
 
 class CustomUserManager(BaseUserManager):
 
@@ -29,10 +31,11 @@ class CustomUserManager(BaseUserManager):
             raise ValueError(_("An email address is required"))
         
         user = self.model(
+            id = str(uuid.uuid4()),
             username = username,
             first_name = first_name,
             last_name = last_name,
-            email = email
+            email = email,
             **extra_fields
         )
         user.set_password(password)
@@ -47,10 +50,10 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault("is_superuser", True)
         extra_fields.setdefault("is_active", True)
 
-        if extra_fields.get["is_staff"] != True:
+        if extra_fields.get("is_staff") != True:
             raise ValueError(_("Superuser must have is_staff=True"))
         
-        if extra_fields.get["is_superuser"] != True:
+        if extra_fields.get("is_superuser") != True:
             raise ValueError(_("Superuser must have is_superuser=True"))
         
         if not password:
@@ -61,7 +64,14 @@ class CustomUserManager(BaseUserManager):
             self.email_validate(email)
         else:
             raise ValidationError("Admin Account: An email address is required for the superuser")
-        user = self.create_user(username, first_name, last_name, email, password, **extra_fields)
+        user = self.create_user(
+            username=username,
+            first_name = first_name,
+            last_name = last_name,
+            email = email,
+            password=password,
+            **extra_fields
+            )
         user.save(using=self._db)
         return user
     
