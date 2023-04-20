@@ -15,18 +15,20 @@ class UserAdmin(BaseUserAdmin):
     model = User
     # used for making the fields/values clickable
     list_display_links = [
+        'username',
         'id',
         'email',
         ]
     list_display = [
+        'pkid',
+        'id',
+        'email',
         'username',
         'first_name',
         'last_name',
-        'email',
-        'id',
-        'pkid',
         'is_active',
         'is_staff',
+        'is_superuser'
         ]
     list_filter = [
         'email',
@@ -61,5 +63,13 @@ class UserAdmin(BaseUserAdmin):
     #     })
     # )
     search_fields = ['email', 'username', 'first_name', 'last_name']
+    actions = ['make_super_user']
+
+    def make_super_user(self, request, queryset):
+        for obj in queryset:
+            obj.is_superuser = True
+            obj.is_staff = True
+            obj.is_active = True
+            obj.save()
 
 admin.site.register(User, UserAdmin)
