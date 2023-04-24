@@ -13,7 +13,7 @@ class Rating(TimeStampedUUIDModle):
         RATING_2 = 2, _("Fair")
         RATING_3 = 3, _("Good")
         RATING_4 = 4, _("Very Good")
-        RATING_5 = 5, _("Excelent")
+        RATING_5 = 5, _("Excellent")
 
     rater = models.ForeignKey(
                 AUTH_USER_MODEL,
