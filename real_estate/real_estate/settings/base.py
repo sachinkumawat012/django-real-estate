@@ -194,7 +194,7 @@ SIMPLE_JWT={
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=120),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "SIGNING_KEY": env("SIGNING_KEY"),
-    "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken")
+    "AUTH_TOKEN_CLASSES": ["rest_framework_simplejwt.tokens.AccessToken"]
 }
 
 DJOSER = {

@@ -15,7 +15,7 @@ class UserSerializer(serializers.ModelField):
     top_seller = serializers.BooleanField(source="profile.top.seller")
     first_name = serializers.SerializerMethodField()
     last_name = serializers.SerializerMethodField()
-    full_name = serializers.SerializerMethodField(source="get_full_name")
+    fullname = serializers.SerializerMethodField(source="get_full_name")
 
     class Meta:
         model = User
@@ -24,7 +24,7 @@ class UserSerializer(serializers.ModelField):
             'username',
             'first_name',
             'last_name',
-            'full_name',
+            'fullname',
             'phone_number',
             'gender',
             'country',
