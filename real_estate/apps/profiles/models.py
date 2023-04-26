@@ -5,7 +5,7 @@ from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
 
 from apps.common.models import TimeStampedUUIDModle
-
+from .managers import AgentProfileManager, TopAgentProfileManager
 # Create your models here.
 
 User = get_user_model()
@@ -51,7 +51,7 @@ class Profile(models.Model):
                         )
     city = models.CharField(verbose_name=_("City"),
                            default="Indore",
-                           max_length=200,
+                           max_length=25,
                            blank=False,
                            null=False,
                         )
@@ -81,5 +81,9 @@ class Profile(models.Model):
                                      blank=True,
                                      )
     
+    objects = models.Manager()
+    agent_profile = AgentProfileManager()
+    top_agent_profile = TopAgentProfileManager()
+
     def __str__(self) -> str:
         return f"{self.user.username}'s profile"

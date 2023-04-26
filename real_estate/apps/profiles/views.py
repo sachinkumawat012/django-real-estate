@@ -11,13 +11,13 @@ from .serializers import ProfileSerializer, UpdateProfileSerializer
 
 class AgentListAPIView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
-    queryset = Profile.objects.filter(is_agent=True)
+    queryset = Profile.agent_profile
     serializer_class = ProfileSerializer
 
 
 class TopAgentListAPIView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
-    queryset = Profile.objects.filter(top_agent=True)
+    queryset = Profile.top_agent_profile
     serializer_class = ProfileSerializer
 
 

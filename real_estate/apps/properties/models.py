@@ -50,7 +50,7 @@ class Property(TimeStampedUUIDModle):
     )
     ref_code = models.CharField(
         verbose_name=_("Properti refrens code"),
-        max_length=255,
+        max_length=10,
         unique=True,
         blank=True
     )
