@@ -156,7 +156,7 @@ class Property(TimeStampedUUIDModle):
         blank=True
     )
     published_status = models.BooleanField(
-        verbose_name=_("Published statu"),
+        verbose_name=_("Published status"),
         default=False
     )
     views = models.IntegerField(
@@ -176,8 +176,8 @@ class Property(TimeStampedUUIDModle):
 
     def save(self, *args, **kwargs):
         self.title = str.title(self.title)
-        self.description = str.description(self.description)
-        self.ref_code = "".join(random.choices(string.ascii_uppercase) + string.digits, k=10)
+        self.description = str.capitalize(self.description)
+        self.ref_code = "".join(random.choices(string.ascii_uppercase + string.digits, k=10))
         super(Property, self).save(*args, **kwargs)
 
     @property
