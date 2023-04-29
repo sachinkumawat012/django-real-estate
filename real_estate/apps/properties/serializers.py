@@ -7,6 +7,7 @@ from .models import Property, PropertyViews
 class PropertySerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
     country = CountryField(name_only=True)
+    final_property_price = serializers.SerializerMethodField()
 
     class Meta:
         model = Property
@@ -19,12 +20,12 @@ class PropertySerializer(serializers.ModelSerializer):
             'description',
             'country',
             'city',
-            'postel_code',
+            'postal_code',
             'street_address',
             'property_number',
             'price',
             'tax',
-            'fianl_property_price',
+            'final_property_price',
             'plot_area',
             'total_floors',
             'bedrooms',
@@ -43,6 +44,9 @@ class PropertySerializer(serializers.ModelSerializer):
     def get_user(self, obj):
         return obj.user.username
     
+    def get_final_property_price(self, obj):
+        return obj.final_property_price
+
 
 class PropertyCreateSerializer(serializers.ModelSerializer):
     country = CountryField(name_only=True)
