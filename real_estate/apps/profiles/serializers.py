@@ -11,7 +11,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     fullname = serializers.SerializerMethodField(read_only=True)
     email = serializers.EmailField(source="user.email")
     country = CountryField(name_only=True)
-    # review = serializers.SerializerMethodField(read_only=True)
+    reviews = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Profile
@@ -34,7 +34,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             'rating',
             'is_agent',
             'num_review',
-            # 'review'
+            'reviews'
         ]
     
     def get_fullname(self, obj):
@@ -42,11 +42,10 @@ class ProfileSerializer(serializers.ModelSerializer):
         last_name = obj.user.last_name.title()
         return f'{first_name} {last_name}'
     
-    # def get_review(self, obj):
-        # reviews = obj.agent_review.all()
-        # serializer = Ratingsirializer(reviews)
-        # breakpoint()
-        # return serializer.data
+    def get_reviews(self, obj):
+        reviews = obj.agent_review.all()
+        serializer = Ratingsirializer(reviews)
+        return serializer.data
     
     def to_representation(self, instance):
         representation = super().to_representation(instance)
